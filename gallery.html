@@ -63,10 +63,24 @@
   .zoom.open { display: block; }
   .zoom img { display: block; margin: 0 auto; max-width: none; width: min(100%, 1440px); }
 
+  .pick { display: none; position: relative; }
+  .pick select { all: unset; box-sizing: border-box; width: 100%; padding-right: 22px; font: 600 24px/1.2 var(--serif); color: var(--ink); color-scheme: dark; cursor: pointer; }
+  .pick::after { content: "\25BE"; position: absolute; right: 0; top: 50%; transform: translateY(-50%); color: var(--soft); pointer-events: none; }
+  .pick select:focus-visible { outline: 1px solid var(--soft); outline-offset: 4px; }
+
+  /* Phones: no rail and no arrow keys, so the title becomes the site picker and the stage takes swipes. */
   @media (max-width: 800px) {
-    body { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+    body { grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr); }
     nav { display: none; }
-    header { flex-wrap: wrap; }
+    header { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; align-items: center; padding: 14px 18px 12px; }
+    header h2 { display: none; }
+    .pick { display: block; }
+    header p { grid-column: 1 / -1; font-size: 15px; }
+    .stage { padding: 12px 18px 22px; touch-action: pan-y; }
+    .stage .count { right: 20px; bottom: 2px; }
+    footer { padding: 10px 18px 14px; }
+    .meta { gap: 2px 18px; }
+    .keys { display: none; }
   }
 </style>
 </head>
@@ -75,6 +89,7 @@
 <main>
   <header>
     <h2 id="name"></h2>
+    <label class="pick"><select id="pick" aria-label="Site"></select></label>
     <p id="idea"></p>
     <div class="links"><a id="teardown" href="#">Teardown</a><a id="live" href="#" target="_blank" rel="noopener">Live site</a></div>
   </header>
@@ -94,8 +109,8 @@
   var $ = function (id) { return document.getElementById(id); };
   var si = 0, hi = 0, items = [];
 
-  // Rail, grouped.
-  var nav = $('nav'), group = null, heads = [];
+  // Rail, grouped, and the same list as a picker for phones.
+  var nav = $('nav'), group = null, heads = [], optgroup;
   sites.forEach(function (s, i) {
     if (s.group !== group) {
       group = s.group;
@@ -103,7 +118,11 @@
       h.textContent = s.groupTitle;
       nav.appendChild(h);
       heads.push({ el: h, sites: [] });
+      optgroup = document.createElement('optgroup');
+      optgroup.label = s.groupTitle;
+      $('pick').appendChild(optgroup);
     }
+    optgroup.appendChild(new Option(s.name, i));
     var b = document.createElement('button');
     b.textContent = s.name;
     b.onclick = function () { show(i, 0); };
@@ -151,6 +170,7 @@
     sites.forEach(function (x) { x.button.setAttribute('aria-current', x === s); });
     s.button.scrollIntoView({ block: 'nearest' });
     $('name').textContent = s.name;
+    $('pick').value = si;
     $('idea').textContent = s.idea;
     $('teardown').href = 'sites/' + s.slug + '/teardown.md';
     $('live').href = s.url;
@@ -188,6 +208,15 @@
 
   $('shot').onclick = function () { $('zoomImg').src = this.src; $('zoom').classList.add('open'); };
   $('zoom').onclick = function () { this.classList.remove('open'); };
+  $('pick').onchange = function () { show(+this.value, 0); this.blur(); };
+
+  // Swipe sideways on the screen to flip screens.
+  var sx = 0, sy = 0, stage = document.querySelector('.stage');
+  stage.addEventListener('touchstart', function (e) { sx = e.changedTouches[0].clientX; sy = e.changedTouches[0].clientY; }, { passive: true });
+  stage.addEventListener('touchend', function (e) {
+    var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > 1.5 * Math.abs(dy)) pick(hi + (dx < 0 ? 1 : -1));
+  }, { passive: true });
 
   addEventListener('keydown', function (e) {
     if (e.target === $('q')) {
@@ -198,7 +227,7 @@
       else return;
       return e.preventDefault();
     }
-    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.ctrlKey || e.metaKey || e.altKey || e.target === $('pick')) return;
     if (e.key === 'Escape') return $('zoom').classList.remove('open');
     if (e.key === '/') $('q').focus();
     else if (e.key === 'ArrowRight') pick(hi + 1);
