@@ -5,7 +5,7 @@
 <p><img src="motion.webp" width="100%" alt="Izakaya Sakura, first seconds with the cursor moving"></p>
 <!-- gallery:end -->
 
-Kani Studio, v3, passed review. Live: <https://www.seankani.com/studio/clients/izakaya-sakura/>. Source: `E:\vibecoding\seankani.com\public\studio\clients\izakaya-sakura\index.html`.
+Kani Studio, v3, passed review. Live: <https://www.seankani.com/studio/clients/izakaya-sakura/>.
 
 **The idea:** a printed izakaya menu. You enter through a noren curtain, and orders are counted in 正 tally strokes.
 

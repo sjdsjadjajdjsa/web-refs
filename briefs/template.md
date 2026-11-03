@@ -14,7 +14,7 @@ Done:        phone + desktop screenshot, judged by eye
 Rules:
 
 - The chat states the idea back in one sentence before writing any code.
-- The banned list in `~/.claude/CLAUDE.md` ("No AI UI slop") applies.
+- The [banned list](banned.md) applies.
 
 ## Worked example (Izakaya Sakura, v3, passed review)
 
