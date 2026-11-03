@@ -2,7 +2,7 @@
 
 # web-refs
 
-Sean's reference library for building websites that don't look AI-generated. The website chats read this before building a page.
+A reference library for building websites that don't look AI-generated: 36 real sites, each with screenshots, a motion preview and a teardown of what to steal and what not to. I hand it to AI chats before they build a page, but it works just as well as a plain inspiration library.
 
 **How a chat uses it:**
 
@@ -11,7 +11,7 @@ Sean's reference library for building websites that don't look AI-generated. The
 3. State the one idea in a sentence before writing any code.
 4. Judge the result by phone and desktop screenshots.
 
-The banned list in `~/.claude/CLAUDE.md` ("No AI UI slop") applies to everything here.
+The [banned list](briefs/banned.md) applies to everything here.
 
 **Adding a site:**
 
@@ -218,7 +218,7 @@ Format: what it is · why it's good · when to use it. GitHub stats are as of 20
 **9. [Tufte CSS](https://edwardtufte.github.io/tufte-css/)** ([edwardtufte/tufte-css](https://github.com/edwardtufte/tufte-css) ★6.6k, 2026-06-24, MIT)
 - **What:** sidenotes, margin figures and ET Book, all in one readable CSS file.
 - **Why:** it shows how much character margins and notes give long text.
-- **When:** case studies, about pages, Needle House write-ups.
+- **When:** case studies, about pages, long write-ups.
 
 ### Colour
 
@@ -250,7 +250,7 @@ Format: what it is · why it's good · when to use it. GitHub stats are as of 20
 **15. [Motion](https://motion.dev)** ([motiondivision/motion](https://github.com/motiondivision/motion) ★34.6k, 2026-10-28, MIT)
 - **What:** springs, gestures and layout animation for React and vanilla JS. Blundin's site uses it.
 - **Why:** motion that can be interrupted and that follows the hand.
-- **When:** drag, reorder, shared-element moves in apps like The Grid. Skip `whileInView` reveals.
+- **When:** drag, reorder, shared-element moves in apps. Skip `whileInView` reveals.
 
 **16. [GSAP](https://gsap.com)** ([greensock/GSAP](https://github.com/greensock/GSAP) ★29.9k, 2026-04-13)
 - **What:** timeline sequencing. Every plugin (SplitText, MorphSVG, ScrollTrigger) has been free since 3.13.
@@ -278,7 +278,7 @@ Format: what it is · why it's good · when to use it. GitHub stats are as of 20
 
 **21. [Three.js Journey](https://threejs-journey.com)** (Bruno Simon, paid course)
 - **What:** the most direct path for one person to reach studio-level WebGL. His portfolio source is open: [brunosimon/folio-2025](https://github.com/brunosimon/folio-2025) (★2.0k, 2026-04-07, MIT), live at [bruno-simon.com](https://bruno-simon.com).
-- **When:** if Sean wants to build Active Theory-type work himself.
+- **When:** if you want to build Active Theory-type work yourself.
 
 **22. [lil-gui](https://lil-gui.georgealways.com/)** ([georgealways/lil-gui](https://github.com/georgealways/lil-gui) ★1.7k, 2025-10-12, MIT)
 - **What:** a tiny tweak panel you bind to any number, colour or toggle.
@@ -310,7 +310,7 @@ Format: what it is · why it's good · when to use it. GitHub stats are as of 20
 **27. [Maggie Appleton](https://maggieappleton.com)** ([MaggieAppleton/maggieappleton.com-V3](https://github.com/MaggieAppleton/maggieappleton.com-V3) ★225, 2026-10-22; Astro + MDX)
 - **What:** hand-drawn illustration, notes marked by growth stage, quiet layout.
 - **Why:** the personality comes from the person's drawings and writing, not effects.
-- **When:** personal sites and the music portfolio.
+- **When:** personal sites and portfolios.
 
 **28. [Bartosz Ciechanowski](https://ciechanow.ski)** (no repo; view-source is hand-written JS and WebGL)
 - **What:** interactive explainers (gears, cameras, GPS) where every animation explains the subject.
@@ -326,7 +326,7 @@ Format: what it is · why it's good · when to use it. GitHub stats are as of 20
 
 **30. [React Aria Components](https://react-aria.adobe.com)** ([adobe/react-spectrum](https://github.com/adobe/react-spectrum) ★16k, 2026-10-28, Apache-2.0)
 - **What:** the most thorough accessibility and i18n behaviour available: date pickers, comboboxes, drag and drop. Unstyled.
-- **When:** app UIs like The Grid.
+- **When:** app UIs.
 
 ---
 
@@ -337,3 +337,9 @@ Format: what it is · why it's good · when to use it. GitHub stats are as of 20
 - **AOS and other animate-on-scroll libraries, and ScrollTrigger used for reveals.** They produce fade-up on every section.
 - **Lenis and other smooth-scroll hijacking,** unless the whole page is a single scroll-driven scene.
 - **Geist or Inter as the default face, and glass nav pills.** That includes Blundin's own nav: copy his conceit, not his chrome.
+
+## License
+
+The code (`tools/`, `gallery.html`) is MIT, see [LICENSE](LICENSE). The writing (this README, the teardowns, the briefs, `hydra.md`) is [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/): reuse it, just credit this repo.
+
+The screenshots and motion previews belong to each site's owner. They're here for reference and study only. If one of them is yours and you want it taken down, open an issue.
